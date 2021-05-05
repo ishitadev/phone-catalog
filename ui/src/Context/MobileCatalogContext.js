@@ -1,8 +1,8 @@
 import React from 'react'
 import * as ActionNames from '../ActionNames';
 
-var MobileCatalogStateContext = React.createContext()
-var MobileCatalogDispatchContext = React.createContext()
+let MobileCatalogStateContext = React.createContext()
+let MobileCatalogDispatchContext = React.createContext()
 
 function MobileCatalogReducer(state, action) {
 	switch (action.type) {
@@ -25,7 +25,7 @@ function MobileCatalogReducer(state, action) {
 }
 
 function MobileCatalogProvider({ children }) {
-	var [state, dispatch] = React.useReducer(MobileCatalogReducer, {
+	let [state, dispatch] = React.useReducer(MobileCatalogReducer, {
 		mobilecatalog: null,
 		mobilecatalogs: [],
 		error: null,
@@ -41,7 +41,7 @@ function MobileCatalogProvider({ children }) {
 }
 
 function useMobileCatalogState() {
-	var context = React.useContext(MobileCatalogStateContext)
+	let context = React.useContext(MobileCatalogStateContext)
 	if (context === undefined) {
 		throw new Error('useMobileCatalogState must be used within a MobileCatalogProvider')
 	}
@@ -49,7 +49,7 @@ function useMobileCatalogState() {
 }
 
 function useMobileCatalogDispatch() {
-	var context = React.useContext(MobileCatalogDispatchContext)
+	let context = React.useContext(MobileCatalogDispatchContext)
 	if (context === undefined) {
 		throw new Error('useMobileCatalogDispatch must be used within a MobileCatalogProvider')
 	}

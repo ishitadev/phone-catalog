@@ -1,9 +1,9 @@
-var express = require('express');
-var cors = require("cors");
-var catalogRoute = require('./routes/CatalogRoute');
-var path = require('path');
+let express = require('express');
+let cors = require("cors");
+let catalogRoute = require('./routes/CatalogRoute');
+let path = require('path');
 
-var app = express();
+let app = express();
 
 require('./DBconnection')
 

@@ -1,8 +1,6 @@
 const router = require('express').Router();
 
-var catalog = require("../Services/CatalogService");
-
-var { getCatalog, addCatalog, updateCatalog, removeCatalog, getCatalogById } = catalog
+let { getCatalog, addCatalog, updateCatalog, removeCatalog, getCatalogById } = require("../Services/CatalogService");
 
 const multer = require('multer');
 
@@ -16,7 +14,7 @@ const storage = multer.diskStorage({
     }
 });
 const cpUpload = multer({ storage: storage });
-var upload = cpUpload.fields([{ name: 'imageFileName', maxCount: 1 }])
+let upload = cpUpload.fields([{ name: 'imageFileName', maxCount: 1 }])
 
 router.get("/phone", getCatalog);
 router.post("/phone", upload, addCatalog);
