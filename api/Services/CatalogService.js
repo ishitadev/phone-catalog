@@ -14,13 +14,14 @@ exports.getCatalog = async (req, res) => {
 
 exports.addCatalog = async (req, res) => {
     try {
-
         if (req.body == undefined) return res.send({ error: "All Filed is Required" })
 
         if (isNaN(req.body.price)) return res.send({ error: "Price is in invalid format!!" })
         if (isNaN(req.body.ram)) return res.send({ error: "Ram is in invalid format!!" })
-
-        const phoneCatalogue = new Catalog(req.body);
+        const phoneCatalogue = new Catalog({
+            ...req.body,
+            imageFileName: req.files.imageFileName[0].filename
+        });
         const result = await phoneCatalogue.save();
 
         if (!result) {
@@ -33,14 +34,34 @@ exports.addCatalog = async (req, res) => {
     }
 }
 
+exports.getCatalogById = async (req, res) => {
+    try {
+        Catalog.findById(req.params.id, (err, result) => {
+            if (err) return res.status(400).send({ error: err })
+            res.status(200).send(result)
+        })
+
+    } catch (err) {
+        res.status(400).send(err);
+    }
+}
+
 exports.updateCatalog = async (req, res) => {
     try {
 
         const phoneResult = await Catalog.findById(req.params.id)
         if (!phoneResult) return res.status(404).send({ msg: "PhoneCatalogue Not Found!!" })
-
-        const updatePhoneCatalog = {
-            ...req.body
+        let updatePhoneCatalog = {};
+        if (req.files.imageFileName) {
+            updatePhoneCatalog = {
+                ...req.body,
+                imageFileName: req.files.imageFileName[0].filename
+            }
+        }
+        else {
+            updatePhoneCatalog = {
+                ...req.body
+            }
         }
 
         await Catalog.findOneAndUpdate({ _id: req.params.id }, updatePhoneCatalog)

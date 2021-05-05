@@ -3,7 +3,6 @@ import {Route,Switch} from 'react-router-dom';
 import Admin from './AdminUI/App'
 
 function App() {
-
   return (
    <>
        <Switch>
